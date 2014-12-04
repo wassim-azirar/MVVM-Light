@@ -1,18 +1,28 @@
 ﻿<phone:PhoneApplicationPage x:Class="MvvmLightWP8.MainPage"
                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:appBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            DataContext="{Binding Source={StaticResource MainViewModel}}"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             Orientation="Portrait"
                             SupportedOrientations="Portrait"
                             shell:SystemTray.IsVisible="True"
-                            DataContext="{Binding Source={StaticResource MainViewModel}}"
                             mc:Ignorable="d">
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="FriendTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding FirstName}" />
+
+                <TextBlock Text="{Binding LastName}" />
+            </StackPanel>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -47,19 +57,22 @@
         <Grid x:Name="ContentPanel"
               Grid.Row="1"
               Margin="12,0,12,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Text="{Binding Name}" />
-            
-            <Button Grid.Row="1" 
-                    Content="Load"
-                    Command="{Binding LoadCommand}" />
+            <phone:LongListSelector Margin="5"
+                                    ItemTemplate="{StaticResource FriendTemplate}"
+                                    ItemsSource="{Binding Friends}" />
         </Grid>
     </Grid>
 
+    <appBar:Bindable.ApplicationBar>
+        <appBar:BindableApplicationBar>
+            <appBar:BindableApplicationBarButton Command="{Binding GetFriendsCommand}"
+                                                 IconUri="/Assets/AppBar/refresh.png"
+                                                 Text="refresh" />
+            <!--
+                <appBar:BindableApplicationBar.MenuItems>
+                <appBar:BindableApplicationBarMenuItem Command="{Binding TestCommand}" Text="Menu Item 1" />
+                </appBar:BindableApplicationBar.MenuItems>
+            -->
+        </appBar:BindableApplicationBar>
+    </appBar:Bindable.ApplicationBar>
 </phone:PhoneApplicationPage>

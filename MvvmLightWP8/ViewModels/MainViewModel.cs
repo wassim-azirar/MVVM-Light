@@ -1,11 +1,16 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using MvvmLightWP8.Helpers;
+using MvvmLightWP8.DelagateCommand;
+using MvvmLightWP8.Models;
+using MvvmLightWP8.Services;
 
 namespace MvvmLightWP8.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        #region INotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
@@ -17,32 +22,69 @@ namespace MvvmLightWP8.ViewModels
             }
         }
 
-        private string _name;
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                if (string.Equals(_name, value))
-                {
-                    return;
-                }
+        #endregion
 
-                _name = value;
-                RaisePropertyChanged();
+        #region Properties
+
+        public ObservableCollection<Friend> Friends
+        {
+            get;
+            private set;
+        }
+
+        #endregion
+
+        #region Ctor
+
+        public MainViewModel() : this(new DataService(), new NavigationService(), new DialogService())
+        {
+            Friends = new ObservableCollection<Friend>();
+        }
+
+        public MainViewModel(IDataService dataService, INavigationService navigationService, IDialogService dialogService)
+        {
+            _dataService = dataService;
+            _navigationService = navigationService;
+            _dialogService = dialogService;
+
+            Friends = new ObservableCollection<Friend>();
+        }
+
+        #endregion
+
+        #region Services
+
+        private readonly IDataService _dataService;
+        private readonly IDialogService _dialogService;
+        private readonly INavigationService _navigationService;
+
+        #endregion
+
+        #region DelegateCommand
+
+        private DelegateCommand _getFriendsCommand;
+
+        public DelegateCommand GetFriendsCommand
+        {
+            get { return _getFriendsCommand ?? (_getFriendsCommand = new DelegateCommand(GetFriendsCommandExecute)); }
+        }
+        
+        #endregion
+
+        #region Methods
+
+        private async void GetFriendsCommandExecute()
+        {
+            Friends.Clear();
+
+            var friends = await _dataService.GetFriends();
+
+            foreach (var friend in friends)
+            {
+                Friends.Add(friend);
             }
         }
 
-        private DelegateCommand _loadCommand;
-
-        public DelegateCommand LoadCommand
-        {
-            get { return _loadCommand ?? (_loadCommand = new DelegateCommand(LoadCommandExecute)); }
-        }
-
-        private void LoadCommandExecute()
-        {
-            Name = "Wassim AZIRAR";
-        }
+        #endregion
     }
 }

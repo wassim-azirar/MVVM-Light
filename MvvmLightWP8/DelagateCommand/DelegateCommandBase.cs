@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace MvvmLightWP8.Helpers
+namespace MvvmLightWP8.DelagateCommand
 {
     /// <summary>
     ///     An ICommand whose delegates can be attached for DelegateCommandBase.Execute(System.Object) and DelegateCommandBase.CanExecute(System.Object).

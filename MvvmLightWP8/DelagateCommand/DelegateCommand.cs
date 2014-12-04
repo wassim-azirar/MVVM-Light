@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MvvmLightWP8.Helpers
+namespace MvvmLightWP8.DelagateCommand
 {
     public class DelegateCommand : DelegateCommandBase
     {
@@ -18,8 +18,7 @@ namespace MvvmLightWP8.Helpers
         /// </summary>
         /// <param name="executeMethod">The Action to invoke whenICommand.Execute(System.Object) is called.</param>
         /// <param name="canExecuteMethod">The Func to invoke when ICommand.CanExecute(System.Object) is called</param>
-        public DelegateCommand(Action executeMethod, Func<bool> canExecuteMethod)
-            : base((o => executeMethod()), (o => canExecuteMethod()))
+        public DelegateCommand(Action executeMethod, Func<bool> canExecuteMethod) : base((o => executeMethod()), (o => canExecuteMethod()))
         {
             if (executeMethod == null || canExecuteMethod == null)
             {
@@ -35,7 +34,6 @@ namespace MvvmLightWP8.Helpers
             Execute(null);
         }
 
-        
         /// <summary>
         ///     Determines if the command can be executed.
         /// </summary>
@@ -75,8 +73,7 @@ namespace MvvmLightWP8.Helpers
         /// <exception cref="T:System.ArgumentNullException">
         ///     When both executeMethod and canExecuteMethod are null".
         /// </exception>
-        public DelegateCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod)
-            : base((o => executeMethod((T)o)), (o => canExecuteMethod((T)o)))
+        public DelegateCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod) : base((o => executeMethod((T)o)), (o => canExecuteMethod((T)o)))
         {
             if (executeMethod == null || canExecuteMethod == null)
             {
