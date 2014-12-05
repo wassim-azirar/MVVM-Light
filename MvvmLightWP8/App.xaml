@@ -5,8 +5,6 @@
              xmlns:interactivity="clr-namespace:Microsoft.Xaml.Interactivity;assembly=Microsoft.Xaml.Interactivity"
              xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
              xmlns:viewModels="clr-namespace:MvvmLightWP8.ViewModels">
-
-    <!--  Application Resources  -->
     <Application.Resources>
         <local:LocalizedStrings xmlns:local="clr-namespace:MvvmLightWP8" x:Key="LocalizedStrings" />
         <viewModels:MainViewModel x:Key="MainViewModel" />
@@ -34,9 +32,8 @@
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
                        Source="{Binding PictureUri}" />
-                
-                <StackPanel Grid.Column="1"
-                            Background="#00000000">
+
+                <StackPanel Grid.Column="1" Background="#00000000">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Tap">
                             <core:InvokeCommandAction Command="{Binding ShowDetailsCommand, Mode=OneWay, Source={StaticResource MainViewModel}}" CommandParameter="{Binding Mode=OneWay}" />
@@ -57,7 +54,6 @@
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
-        <!--  Required object that handles lifetime events for the application  -->
         <shell:PhoneApplicationService Activated="Application_Activated"
                                        Closing="Application_Closing"
                                        Deactivated="Application_Deactivated"

@@ -20,11 +20,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--
-            LOCALIZATION NOTE:
-            Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
-        -->
-
         <StackPanel x:Name="TitlePanel"
                     Grid.Row="0"
                     Margin="12,17,0,28">
@@ -35,15 +30,6 @@
                        Style="{StaticResource PhoneTextTitle1Style}"
                        Text="page name" />
         </StackPanel>
-
-        <!--<Image Grid.Row="0"
-               Grid.RowSpan="2"
-               Width="480"
-               Height="800"
-               Margin="0,-32,0,0"
-               VerticalAlignment="Top"
-               IsHitTestVisible="False"
-               Source="/Assets/AlignmentGrid.png" />-->
 
         <Grid x:Name="ContentPanel"
               Grid.Row="1"
@@ -59,11 +45,6 @@
             <appBar:BindableApplicationBarButton Command="{Binding GetFriendsCommand}"
                                                  IconUri="/Assets/AppBar/refresh.png"
                                                  Text="refresh" />
-            <!--
-                <appBar:BindableApplicationBar.MenuItems>
-                <appBar:BindableApplicationBarMenuItem Command="{Binding TestCommand}" Text="Menu Item 1" />
-                </appBar:BindableApplicationBar.MenuItems>
-            -->
         </appBar:BindableApplicationBar>
     </appBar:Bindable.ApplicationBar>
 </phone:PhoneApplicationPage>

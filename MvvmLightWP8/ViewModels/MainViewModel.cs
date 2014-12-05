@@ -55,9 +55,19 @@ namespace MvvmLightWP8.ViewModels
 
         #region Ctor
 
-        public MainViewModel() : this(new DataService(), new NavigationService(), new DialogService())
+        public MainViewModel() : 
+            this(DesignerProperties.IsInDesignTool ? (IDataService)new Design.DesignFriendsService() : new DataService(), 
+                 new NavigationService(), 
+                 new DialogService())
         {
             Friends = new ObservableCollection<Friend>();
+#if DEBUG
+            if (DesignerProperties.IsInDesignTool)
+            {
+                GetFriendsCommandExecute();
+                SelectedFriend = Friends[0];
+            }
+#endif
         }
 
         public MainViewModel(IDataService dataService, INavigationService navigationService, IDialogService dialogService)
@@ -82,17 +92,48 @@ namespace MvvmLightWP8.ViewModels
         #region DelegateCommand
 
         private DelegateCommand _getFriendsCommand;
-
+        private DelegateCommand<Friend> _showDetailsCommand;
+        private DelegateCommand<Friend> _saveFriendCommand;
+        
         public DelegateCommand GetFriendsCommand
         {
             get { return _getFriendsCommand ?? (_getFriendsCommand = new DelegateCommand(GetFriendsCommandExecute)); }
         }
 
-        private DelegateCommand<Friend> _showDetailsCommand;
-
         public DelegateCommand<Friend> ShowDetailsCommand
         {
             get { return _showDetailsCommand ?? (_showDetailsCommand = new DelegateCommand<Friend>(ShowDetailsCommandExecute)); }
+        }
+
+        public DelegateCommand<Friend> SaveFriendCommand
+        {
+            get
+            {
+                return _saveFriendCommand ?? (_saveFriendCommand = new DelegateCommand<Friend>(
+                    async friend =>
+                    {
+                        try
+                        {
+                            var service = _dataService;
+                            var result = await service.Save(friend);
+
+                            var id = int.Parse(result);
+
+                            if (id > 0)
+                            {
+                                friend.Id = id;
+                            }
+                            else
+                            {
+                                _dialogService.ShowMessage("Error");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            _dialogService.ShowMessage(ex.Message);
+                        }
+                    }));
+            }
         }
 
         #endregion
