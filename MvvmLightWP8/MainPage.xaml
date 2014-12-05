@@ -14,15 +14,6 @@
                             SupportedOrientations="Portrait"
                             shell:SystemTray.IsVisible="True"
                             mc:Ignorable="d">
-    <phone:PhoneApplicationPage.Resources>
-        <DataTemplate x:Key="FriendTemplate">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding FirstName}" />
-
-                <TextBlock Text="{Binding LastName}" />
-            </StackPanel>
-        </DataTemplate>
-    </phone:PhoneApplicationPage.Resources>
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -45,14 +36,14 @@
                        Text="page name" />
         </StackPanel>
 
-        <Image Grid.Row="0"
+        <!--<Image Grid.Row="0"
                Grid.RowSpan="2"
                Width="480"
                Height="800"
                Margin="0,-32,0,0"
                VerticalAlignment="Top"
                IsHitTestVisible="False"
-               Source="/Assets/AlignmentGrid.png" />
+               Source="/Assets/AlignmentGrid.png" />-->
 
         <Grid x:Name="ContentPanel"
               Grid.Row="1"

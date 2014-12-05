@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace MvvmLightWP8.Models
 {
@@ -9,5 +10,8 @@ namespace MvvmLightWP8.Models
         
         [JsonProperty("last_name")]
         public string LastName { get; set; }
+
+        [JsonProperty("picture")]
+        public Uri PictureUri { get; set; }
     }
 }

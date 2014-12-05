@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using MvvmLightWP8.DelagateCommand;
@@ -30,6 +31,24 @@ namespace MvvmLightWP8.ViewModels
         {
             get;
             private set;
+        }
+
+        private Friend _selectedFriend;
+
+        public Friend SelectedFriend
+        {
+            get { return _selectedFriend; }
+
+            set
+            {
+                if (_selectedFriend == value)
+                {
+                    return;
+                }
+
+                _selectedFriend = value;
+                RaisePropertyChanged();
+            }
         }
 
         #endregion
@@ -68,7 +87,14 @@ namespace MvvmLightWP8.ViewModels
         {
             get { return _getFriendsCommand ?? (_getFriendsCommand = new DelegateCommand(GetFriendsCommandExecute)); }
         }
-        
+
+        private DelegateCommand<Friend> _showDetailsCommand;
+
+        public DelegateCommand<Friend> ShowDetailsCommand
+        {
+            get { return _showDetailsCommand ?? (_showDetailsCommand = new DelegateCommand<Friend>(ShowDetailsCommandExecute)); }
+        }
+
         #endregion
 
         #region Methods
@@ -83,6 +109,12 @@ namespace MvvmLightWP8.ViewModels
             {
                 Friends.Add(friend);
             }
+        }
+
+        private void ShowDetailsCommandExecute(object friend)
+        {
+            SelectedFriend = (Friend) friend;
+            _navigationService.NavigateTo(new Uri("/DetailsPage.xaml", UriKind.Relative));
         }
 
         #endregion
