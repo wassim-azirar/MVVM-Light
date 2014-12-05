@@ -1,4 +1,4 @@
-MvvmLightWP8
+MVVMLight Windows Phone 8.1
 ============
 
 This project demonstrate the usage of MVVMLight in a Windows Phone 8.1 (Silverlight) application.
