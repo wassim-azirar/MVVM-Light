@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using MvvmLightWP8.Models;
 using MvvmLightWP8.Services;
@@ -42,20 +41,17 @@ namespace MvvmLightWP8.ViewModels
 
         #region Ctor
 
-        [PreferredConstructor]
         public MainViewModel() : 
             this(DesignerProperties.IsInDesignTool ? (IDataService)new Design.DesignFriendsService() : new DataService(), 
                  new NavigationService(), 
                  new DialogService())
         {
             Friends = new ObservableCollection<Friend>();
-#if DEBUG
-            if (DesignerProperties.IsInDesignTool)
+            if (IsInDesignMode || DesignerProperties.IsInDesignTool)
             {
                 GetFriendsCommandExecute();
                 SelectedFriend = Friends[0];
             }
-#endif
         }
 
         public MainViewModel(IDataService dataService, INavigationService navigationService, IDialogService dialogService)

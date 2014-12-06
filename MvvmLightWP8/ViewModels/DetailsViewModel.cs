@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -40,9 +39,7 @@ namespace MvvmLightWP8.ViewModels
 
         #region Ctor
 
-        public DetailsViewModel() : 
-            this(DesignerProperties.IsInDesignTool ? (IDataService)new Design.DesignFriendsService() : new DataService(),
-                 new DialogService())
+        public DetailsViewModel() : this(new DataService(), new DialogService())
         {
             if (IsInDesignMode)
             {
