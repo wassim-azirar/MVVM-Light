@@ -2,7 +2,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using MvvmLightWP8.DelagateCommand;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using MvvmLightWP8.Models;
 using MvvmLightWP8.Services;
 
@@ -55,6 +56,7 @@ namespace MvvmLightWP8.ViewModels
 
         #region Ctor
 
+        [PreferredConstructor]
         public MainViewModel() : 
             this(DesignerProperties.IsInDesignTool ? (IDataService)new Design.DesignFriendsService() : new DataService(), 
                  new NavigationService(), 
@@ -91,25 +93,25 @@ namespace MvvmLightWP8.ViewModels
 
         #region DelegateCommand
 
-        private DelegateCommand _getFriendsCommand;
-        private DelegateCommand<Friend> _showDetailsCommand;
-        private DelegateCommand<Friend> _saveFriendCommand;
-        
-        public DelegateCommand GetFriendsCommand
+        private RelayCommand _getFriendsCommand;
+        private RelayCommand<Friend> _showDetailsCommand;
+        private RelayCommand<Friend> _saveFriendCommand;
+
+        public RelayCommand GetFriendsCommand
         {
-            get { return _getFriendsCommand ?? (_getFriendsCommand = new DelegateCommand(GetFriendsCommandExecute)); }
+            get { return _getFriendsCommand ?? (_getFriendsCommand = new RelayCommand(GetFriendsCommandExecute)); }
         }
 
-        public DelegateCommand<Friend> ShowDetailsCommand
+        public RelayCommand<Friend> ShowDetailsCommand
         {
-            get { return _showDetailsCommand ?? (_showDetailsCommand = new DelegateCommand<Friend>(ShowDetailsCommandExecute)); }
+            get { return _showDetailsCommand ?? (_showDetailsCommand = new RelayCommand<Friend>(ShowDetailsCommandExecute)); }
         }
 
-        public DelegateCommand<Friend> SaveFriendCommand
+        public RelayCommand<Friend> SaveFriendCommand
         {
             get
             {
-                return _saveFriendCommand ?? (_saveFriendCommand = new DelegateCommand<Friend>(
+                return _saveFriendCommand ?? (_saveFriendCommand = new RelayCommand<Friend>(
                     async friend =>
                     {
                         try

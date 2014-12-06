@@ -4,9 +4,14 @@
              xmlns:core="clr-namespace:Microsoft.Xaml.Interactions.Core;assembly=Microsoft.Xaml.Interactions"
              xmlns:interactivity="clr-namespace:Microsoft.Xaml.Interactivity;assembly=Microsoft.Xaml.Interactivity"
              xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-             xmlns:viewModels="clr-namespace:MvvmLightWP8.ViewModels">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:compatibility="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mvvmLightWp8="clr-namespace:MvvmLightWP8"
+             xmlns:viewModels="clr-namespace:MvvmLightWP8.ViewModels"
+             compatibility:Ignorable="d">
     <Application.Resources>
         <local:LocalizedStrings xmlns:local="clr-namespace:MvvmLightWP8" x:Key="LocalizedStrings" />
+        <mvvmLightWp8:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True"  />
         <viewModels:MainViewModel x:Key="MainViewModel" />
 
         <Style x:Key="LabelTextStyle" TargetType="TextBlock">
