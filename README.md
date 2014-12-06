@@ -1,5 +1,6 @@
 MVVMLight Windows Phone 8.1
 ============
+![Alt text](https://ci.appveyor.com/api/projects/status/ji01g9vsyx2w79ve?svg=true "Build passing")
 
 This project demonstrate the usage of MVVMLight in a Windows Phone 8.1 (Silverlight) application.
 
