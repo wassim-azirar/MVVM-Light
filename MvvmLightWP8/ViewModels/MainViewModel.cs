@@ -1,31 +1,17 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using MvvmLightWP8.Models;
 using MvvmLightWP8.Services;
 
 namespace MvvmLightWP8.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ViewModelBase
     {
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        #endregion
-
         #region Properties
 
         public ObservableCollection<Friend> Friends
@@ -91,11 +77,11 @@ namespace MvvmLightWP8.ViewModels
 
         #endregion
 
-        #region DelegateCommand
+        #region RelayCommands
 
         private RelayCommand _getFriendsCommand;
         private RelayCommand<Friend> _showDetailsCommand;
-        private RelayCommand<Friend> _saveFriendCommand;
+        
 
         public RelayCommand GetFriendsCommand
         {
@@ -105,37 +91,6 @@ namespace MvvmLightWP8.ViewModels
         public RelayCommand<Friend> ShowDetailsCommand
         {
             get { return _showDetailsCommand ?? (_showDetailsCommand = new RelayCommand<Friend>(ShowDetailsCommandExecute)); }
-        }
-
-        public RelayCommand<Friend> SaveFriendCommand
-        {
-            get
-            {
-                return _saveFriendCommand ?? (_saveFriendCommand = new RelayCommand<Friend>(
-                    async friend =>
-                    {
-                        try
-                        {
-                            var service = _dataService;
-                            var result = await service.Save(friend);
-
-                            var id = int.Parse(result);
-
-                            if (id > 0)
-                            {
-                                friend.Id = id;
-                            }
-                            else
-                            {
-                                _dialogService.ShowMessage("Error");
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            _dialogService.ShowMessage(ex.Message);
-                        }
-                    }));
-            }
         }
 
         #endregion
@@ -156,7 +111,9 @@ namespace MvvmLightWP8.ViewModels
 
         private void ShowDetailsCommandExecute(object friend)
         {
-            SelectedFriend = (Friend) friend;
+            //SelectedFriend = (Friend) friend;
+
+            Messenger.Default.Send((Friend)friend);
             _navigationService.NavigateTo(new Uri("/DetailsPage.xaml", UriKind.Relative));
         }
 

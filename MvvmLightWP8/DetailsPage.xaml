@@ -6,7 +6,7 @@
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-                            DataContext="{Binding Source={StaticResource MainViewModel}}"
+                            DataContext="{Binding Source={StaticResource DetailsViewModel}}"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
@@ -33,20 +33,20 @@
                     Margin="12,0,12,0">
             <TextBlock Style="{StaticResource LabelTextStyle}" Text="First Name" />
 
-            <TextBox x:Name="FirstNameTextBox" Text="{Binding SelectedFriend.FirstName, Mode=TwoWay}" />
+            <TextBox x:Name="FirstNameTextBox" Text="{Binding Friend.FirstName, Mode=TwoWay}" />
 
             <TextBlock Style="{StaticResource LabelTextStyle}" Text="Last Name" />
 
-            <TextBox x:Name="LastNameTextBox" Text="{Binding SelectedFriend.LastName, Mode=TwoWay}" />
+            <TextBox x:Name="LastNameTextBox" Text="{Binding Friend.LastName, Mode=TwoWay}" />
         </StackPanel>
     </Grid>
 
     <appBar:Bindable.ApplicationBar>
         <appBar:BindableApplicationBar>
             <appBar:BindableApplicationBarButton Command="{Binding SaveFriendCommand}"
-                                                 CommandParameter="{Binding SelectedFriend}"
+                                                 CommandParameter="{Binding Friend}"
                                                  IconUri="/Assets/AppBar/save.png"
-                                                 Text="refresh" />
+                                                 Text="save" />
         </appBar:BindableApplicationBar>
     </appBar:Bindable.ApplicationBar>
 
