@@ -29,7 +29,7 @@
             <StackPanel Grid.Column="1" Background="#00000000">
                 <interactivity:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="Tap">
-                        <core:InvokeCommandAction Command="{Binding ShowDetailsCommand, Mode=OneWay, Source={StaticResource MainViewModel}}" CommandParameter="{Binding Mode=OneWay}" />
+                        <core:InvokeCommandAction Command="{Binding MainViewModel.ShowDetailsCommand, Mode=OneWay, Source={StaticResource ViewModelLocator}}" CommandParameter="{Binding Mode=OneWay}" />
                     </core:EventTriggerBehavior>
                 </interactivity:Interaction.Behaviors>
 

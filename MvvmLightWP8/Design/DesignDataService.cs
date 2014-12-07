@@ -6,7 +6,7 @@ using MvvmLightWP8.Services;
 
 namespace MvvmLightWP8.Design
 {
-    public class DesignFriendsService : IDataService
+    public class DesignDataService : IDataService
     {
         public Task<IEnumerable<Friend>> GetFriends()
         {

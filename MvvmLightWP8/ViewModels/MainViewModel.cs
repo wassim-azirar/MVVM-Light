@@ -41,19 +41,6 @@ namespace MvvmLightWP8.ViewModels
 
         #region Ctor
 
-        public MainViewModel() : 
-            this(DesignerProperties.IsInDesignTool ? (IDataService)new Design.DesignFriendsService() : new DataService(), 
-                 new NavigationService(), 
-                 new DialogService())
-        {
-            Friends = new ObservableCollection<Friend>();
-            if (IsInDesignMode || DesignerProperties.IsInDesignTool)
-            {
-                GetFriendsCommandExecute();
-                SelectedFriend = Friends[0];
-            }
-        }
-
         public MainViewModel(IDataService dataService, INavigationService navigationService, IDialogService dialogService)
         {
             _dataService = dataService;
@@ -61,6 +48,12 @@ namespace MvvmLightWP8.ViewModels
             _dialogService = dialogService;
 
             Friends = new ObservableCollection<Friend>();
+
+            if (IsInDesignMode || DesignerProperties.IsInDesignTool)
+            {
+                GetFriendsCommandExecute();
+                SelectedFriend = Friends[0];
+            }
         }
 
         #endregion
@@ -107,10 +100,8 @@ namespace MvvmLightWP8.ViewModels
 
         private void ShowDetailsCommandExecute(object friend)
         {
-            //SelectedFriend = (Friend) friend;
-
-            Messenger.Default.Send((Friend)friend);
-            _navigationService.NavigateTo(new Uri("/DetailsPage.xaml", UriKind.Relative));
+            //Messenger.Default.Send((Friend)friend);
+            _navigationService.NavigateTo(new Uri("/DetailsPage.xaml", UriKind.Relative), friend);
         }
 
         #endregion

@@ -6,6 +6,8 @@ namespace MvvmLightWP8.Services
     {
         void NavigateTo(Uri uri);
 
+        void NavigateTo(Uri uri, object state);
+
         void GoBack();
 
     }

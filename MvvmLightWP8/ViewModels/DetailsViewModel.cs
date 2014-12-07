@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
+using System.Windows.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using MvvmLightWP8.Models;
 using MvvmLightWP8.Services;
+using NavigationService = MvvmLightWP8.Services.NavigationService;
 
 namespace MvvmLightWP8.ViewModels
 {
@@ -33,21 +36,22 @@ namespace MvvmLightWP8.ViewModels
         #region Services
 
         private readonly IDataService _dataService;
+        private readonly INavigationService _navigationService;
         private readonly IDialogService _dialogService; 
 
         #endregion
 
         #region Ctor
 
-        public DetailsViewModel() : this(new DataService(), new DialogService())
+        public DetailsViewModel(IDataService dataService, INavigationService navigationService, IDialogService dialogService)
         {
+            _dataService = dataService;
+            _navigationService = navigationService;
+            _dialogService = dialogService;
+
             if (IsInDesignMode)
             {
-                Friend = new Friend
-                {
-                    FirstName = "Wassim", 
-                    LastName = "AZIRAR"
-                };
+                GetFriendOnDesignTime();
             }
             else
             {
@@ -56,14 +60,8 @@ namespace MvvmLightWP8.ViewModels
                     friend =>
                     {
                         Friend = friend;
-                    });   
+                    });
             }
-        }
-
-        public DetailsViewModel(IDataService dataService, IDialogService dialogService)
-        {
-            _dataService = dataService;
-            _dialogService = dialogService;
         }
 
         #endregion
@@ -105,9 +103,20 @@ namespace MvvmLightWP8.ViewModels
             }
         }
 
+        private async void GetFriendOnDesignTime()
+        {
+            var friends = await _dataService.GetFriends();
+
+            if (friends != null)
+            {
+                Friend = friends.FirstOrDefault();
+            }
+        }
+
         public void Unload()
         {
             Messenger.Default.Unregister<Friend>(this);
+            Cleanup();
         }
 
         #endregion

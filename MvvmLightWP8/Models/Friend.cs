@@ -1,4 +1,5 @@
 ﻿using System;
+using GalaSoft.MvvmLight;
 using Newtonsoft.Json;
 
 namespace MvvmLightWP8.Models
@@ -16,5 +17,14 @@ namespace MvvmLightWP8.Models
 
         [JsonProperty("picture")]
         public Uri PictureUri { get; set; }
+
+#if DEBUG
+        public Friend()
+        {
+            FirstName = "Wassim";
+            LastName = "AZIRAR";
+            PictureUri = new Uri("http://www.galasoft.ch/logo/LogoHead128.png");
+        }
+#endif
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Microsoft.Phone.Controls;
+using System.Windows.Navigation;
+using GalaSoft.MvvmLight.Messaging;
 using MvvmLightWP8.ViewModels;
 
 namespace MvvmLightWP8
 {
-    public partial class DetailsPage : PhoneApplicationPage
+    public partial class DetailsPage
     {
         public DetailsPage()
         {
