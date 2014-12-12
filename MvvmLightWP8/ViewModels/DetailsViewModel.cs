@@ -1,12 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
-using System.Windows.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using MvvmLightWP8.Models;
 using MvvmLightWP8.Services;
-using NavigationService = MvvmLightWP8.Services.NavigationService;
 
 namespace MvvmLightWP8.ViewModels
 {
@@ -36,20 +35,18 @@ namespace MvvmLightWP8.ViewModels
         #region Services
 
         private readonly IDataService _dataService;
-        private readonly INavigationService _navigationService;
         private readonly IDialogService _dialogService; 
 
         #endregion
 
         #region Ctor
 
-        public DetailsViewModel(IDataService dataService, INavigationService navigationService, IDialogService dialogService)
+        public DetailsViewModel(IDataService dataService, IDialogService dialogService)
         {
             _dataService = dataService;
-            _navigationService = navigationService;
             _dialogService = dialogService;
 
-            if (IsInDesignMode)
+            if (IsInDesignMode || DesignerProperties.IsInDesignTool)
             {
                 GetFriendOnDesignTime();
             }
@@ -111,12 +108,6 @@ namespace MvvmLightWP8.ViewModels
             {
                 Friend = friends.FirstOrDefault();
             }
-        }
-
-        public void Unload()
-        {
-            Messenger.Default.Unregister<Friend>(this);
-            Cleanup();
         }
 
         #endregion

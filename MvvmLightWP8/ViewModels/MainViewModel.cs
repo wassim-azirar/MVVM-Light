@@ -27,13 +27,15 @@ namespace MvvmLightWP8.ViewModels
 
             set
             {
-                if (_selectedFriend == value)
+                Set(() => SelectedFriend, ref _selectedFriend, value);
+                
+                /*if (_selectedFriend == value)
                 {
                     return;
                 }
 
                 _selectedFriend = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged();*/
             }
         }
 
@@ -52,7 +54,6 @@ namespace MvvmLightWP8.ViewModels
             if (IsInDesignMode || DesignerProperties.IsInDesignTool)
             {
                 GetFriendsCommandExecute();
-                SelectedFriend = Friends[0];
             }
         }
 
@@ -100,8 +101,8 @@ namespace MvvmLightWP8.ViewModels
 
         private void ShowDetailsCommandExecute(object friend)
         {
-            //Messenger.Default.Send((Friend)friend);
             _navigationService.NavigateTo(new Uri("/DetailsPage.xaml", UriKind.Relative), friend);
+            Messenger.Default.Send((Friend)friend);
         }
 
         #endregion

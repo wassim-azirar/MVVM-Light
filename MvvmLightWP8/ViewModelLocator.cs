@@ -26,7 +26,7 @@ namespace MvvmLightWP8
             SimpleIoc.Default.Register<IDialogService, DialogService>();
 
             SimpleIoc.Default.Register(() => new MainViewModel(DataService, NavigationService, DialogService));
-            SimpleIoc.Default.Register(() => new DetailsViewModel(DataService, NavigationService, DialogService));
+            SimpleIoc.Default.Register(() => new DetailsViewModel(DataService, DialogService), true);
         }
 
         public MainViewModel MainViewModel

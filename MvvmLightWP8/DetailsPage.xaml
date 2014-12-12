@@ -6,17 +6,16 @@
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-                            xmlns:model="clr-namespace:MvvmLightWP8.Models"
-                            DataContext="{Binding DetailsViewModel, Source={StaticResource ViewModelLocator}}"
+                            xmlns:models="clr-namespace:MvvmLightWP8.Models"
+                            DataContext="{Binding Path=DetailsViewModel, Source={StaticResource ViewModelLocator}}"
+                            d:DataContext="{d:DesignInstance Type=models:Friend, IsDesignTimeCreatable=True}"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             Orientation="Portrait"
-                            d:DataContext="{d:DesignInstance Type=model:Friend, IsDesignTimeCreatable=True}"
                             SupportedOrientations="Portrait"
                             shell:SystemTray.IsVisible="True"
                             mc:Ignorable="d">
-
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
