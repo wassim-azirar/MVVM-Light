@@ -10,9 +10,7 @@
         <ResourceDictionary>
             <local:LocalizedStrings xmlns:local="clr-namespace:MvvmLightWP8" x:Key="LocalizedStrings" />
             
-            <!--<viewModels:MainViewModel x:Key="MainViewModel" />
-            <viewModels:DetailsViewModel x:Key="DetailsViewModel" />-->
-            
+            <!--<mvvmLightWp8:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />-->
             <mvvmLightWp8:ViewModelLocator x:Key="ViewModelLocator" />
 
             <ResourceDictionary.MergedDictionaries>

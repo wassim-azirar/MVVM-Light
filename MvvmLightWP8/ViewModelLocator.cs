@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Windows;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using MvvmLightWP8.Design;
@@ -12,7 +13,7 @@ namespace MvvmLightWP8
         public ViewModelLocator ()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            
+
             if (ViewModelBase.IsInDesignModeStatic)
             {
                 SimpleIoc.Default.Register<IDataService, DesignDataService>();
@@ -27,6 +28,11 @@ namespace MvvmLightWP8
 
             SimpleIoc.Default.Register(() => new MainViewModel(DataService, NavigationService, DialogService));
             SimpleIoc.Default.Register(() => new DetailsViewModel(DataService, DialogService), true);
+        }
+
+        public static ViewModelLocator Instance
+        {
+            get { return Application.Current.Resources["ViewModelLocator"] as ViewModelLocator; }
         }
 
         public MainViewModel MainViewModel

@@ -8,7 +8,7 @@
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
                             xmlns:models="clr-namespace:MvvmLightWP8.Models"
                             DataContext="{Binding Path=MainViewModel, Source={StaticResource ViewModelLocator}}"
-                            d:DataContext="{d:DesignInstance Type=models:Friend, IsDesignTimeCreatable=True}"
+                            d:DataContext="{d:DesignInstance d:Type=models:Friend, IsDesignTimeCreatable=True}"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"

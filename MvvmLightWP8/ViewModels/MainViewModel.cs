@@ -24,19 +24,7 @@ namespace MvvmLightWP8.ViewModels
         public Friend SelectedFriend
         {
             get { return _selectedFriend; }
-
-            set
-            {
-                Set(() => SelectedFriend, ref _selectedFriend, value);
-                
-                /*if (_selectedFriend == value)
-                {
-                    return;
-                }
-
-                _selectedFriend = value;
-                RaisePropertyChanged();*/
-            }
+            set { Set(() => SelectedFriend, ref _selectedFriend, value); }
         }
 
         #endregion
@@ -51,10 +39,12 @@ namespace MvvmLightWP8.ViewModels
 
             Friends = new ObservableCollection<Friend>();
 
+#if DEBUG
             if (IsInDesignMode || DesignerProperties.IsInDesignTool)
             {
                 GetFriendsCommandExecute();
             }
+#endif
         }
 
         #endregion

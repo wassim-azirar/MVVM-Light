@@ -46,10 +46,12 @@ namespace MvvmLightWP8.ViewModels
             _dataService = dataService;
             _dialogService = dialogService;
 
+#if DEBUG
             if (IsInDesignMode || DesignerProperties.IsInDesignTool)
             {
                 GetFriendOnDesignTime();
             }
+#endif
             else
             {
                 Messenger.Default.Register<Friend>(
